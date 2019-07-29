@@ -1,0 +1,80 @@
+#本机环境
+server:
+  port: 9000
+  servlet:
+    context-path: /
+
+#配置外部访问文件（自定义）
+upload-brandIcon-path: D://车辆图片//车辆品牌图标//
+upload-modelImage-path: D://车辆图片//车辆型号图片//
+
+#聚合数据全国车辆违章Key
+#我的
+juhe-app-key: 870b94a3291d8553a3bfddd49279717e
+#学姐的
+#juhe-app-key: 29bf8b84a502fc71a3582cd5036f047b
+
+
+spring:
+  #   数据源基本配置
+  datasource:
+    username: HaN
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/CarDB
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      #初始化连接大小
+      initial-size: 8
+      #最小空闲连接数
+      min-idle: 5
+      #最大连接数
+      max-active: 10
+      #查询超时时间
+      query-timeout: 6000
+      #事务查询超时时间
+      transaction-query-timeout: 6000
+      #关闭空闲连接超时时间
+      remove-abandoned-timeout: 1800
+      filters: stat,config
+  #上传下载文件大小限制 (可自定义)
+  servlet:
+    multipart:
+      #单个文件最大
+      max-file-size: 5MB
+      #总上传数据最大
+      max-request-size: 20MB
+  #jackson序列化设置（出参设置）
+  jackson:
+    #时间戳统一转换
+    #时间戳转换格式yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
+    #东八区（北京时间）
+    time-zone: GMT+8
+
+
+#日志
+#logging:
+#  file: springboot.log
+#  level.com.example: debug
+
+#mybatis配置
+mybatis:
+  configuration:
+    #    mybatis日志（开发用于控制台查看数据库操作）
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+# 分页插件配置
+# helper-dialect：指定数据库，不指定的话会默认自动检测数据库类型
+# reasonable：是否启用分页合理化。如果启用，当pagenum<1时，会自动查询第一页的数据，当pagenum>pages时，自动查询最后一页数据；不启用的，以上两种情况都会返回空数据
+# support-methods-arguments：默认值false
+# params：用于从对象中根据属性名取值，可以配置 pageNum,pageSize,count,pageSizeZero,reasonable
+## 默认值，默认值为pageNum=pageNum;pageSize=pageSize;count=countSql;reasonable=reasonable;pageSizeZero=pageSizeZero
+pagehelper:
+  helper-dialect: postgresql
+  reasonable: true
+  support-methods-arguments: true
+  # params:
